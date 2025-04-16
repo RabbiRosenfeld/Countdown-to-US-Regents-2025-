@@ -41,10 +41,12 @@
 
   <script>
     const regentsDate = new Date('2025-06-20');
+    const schoolStartDate = new Date('2025-04-21'); // Start date after Passover break
     const today = new Date();
     
     // Set time to midnight to avoid partial day confusion
     regentsDate.setHours(0, 0, 0, 0);
+    schoolStartDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
     // Show today's date
@@ -52,14 +54,14 @@
 
     // Calculate calendar days left
     const msPerDay = 1000 * 60 * 60 * 24;
-    const daysLeft = Math.max(0, Math.ceil((regentsDate - today) / msPerDay));
+    const daysLeft = Math.max(0, Math.ceil((regentsDate - schoolStartDate) / msPerDay));
     document.getElementById('daysLeft').textContent = daysLeft;
 
-    // Count lessons on teaching days: Sunday (0) to Thursday (4)
+    // Count lessons from schoolStartDate (April 21) to June 20, 2025 (Sun–Thu)
     let weekdayCount = 0;
-    for (let d = new Date(today); d <= regentsDate; d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(schoolStartDate); d <= regentsDate; d.setDate(d.getDate() + 1)) {
       const day = d.getDay();
-      if (day >= 0 && day <= 4) {
+      if (day >= 0 && day <= 4) { // Sunday (0) to Thursday (4)
         weekdayCount++;
       }
     }
