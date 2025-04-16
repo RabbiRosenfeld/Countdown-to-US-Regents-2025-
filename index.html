@@ -52,10 +52,10 @@
     // Show today's date
     document.getElementById('todayDate').textContent = today.toDateString();
 
-    // Calculate calendar days left
+    // Calculate calendar days left (from today)
     const msPerDay = 1000 * 60 * 60 * 24;
-    const daysLeft = Math.max(0, Math.ceil((regentsDate - schoolStartDate) / msPerDay));
-    document.getElementById('daysLeft').textContent = daysLeft;
+    const daysLeft = Math.max(0, (regentsDate - today) / msPerDay); // Start from today
+    document.getElementById('daysLeft').textContent = Math.floor(daysLeft); // Use Math.floor to round down
 
     // Count lessons from schoolStartDate (April 21) to June 20, 2025 (Sun–Thu)
     let weekdayCount = 0;
