@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Countdown to the History Regents</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f4f8;
+      color: #333;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+    .count {
+      font-weight: bold;
+      color: #2b6cb0;
+    }
+    .date {
+      margin-bottom: 1rem;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Countdown to the US History Regents</h1>
+  <p class="date">Today is <span id="todayDate">...</span></p>
+  <p>There are <span class="count" id="daysLeft">...</span> days until the Regents.</p>
+  <p>There are approximately <span class="count" id="lessonsLeft">...</span> lessons left.</p>
+
+  <script>
+    const regentsDate = new Date('2025-06-20');
+    const today = new Date();
+    
+    // Set time to midnight to avoid partial day confusion
+    regentsDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    // Show today's date
+    document.getElementById('todayDate').textContent = today.toDateString();
+
+    // Calculate calendar days left
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const daysLeft = Math.max(0, Math.ceil((regentsDate - today) / msPerDay));
+    document.getElementById('daysLeft').textContent = daysLeft;
+
+    // Count lessons on teaching days: Sunday (0) to Thursday (4)
+    let weekdayCount = 0;
+    for (let d = new Date(today); d <= regentsDate; d.setDate(d.getDate() + 1)) {
+      const day = d.getDay();
+      if (day >= 0 && day <= 4) {
+        weekdayCount++;
+      }
+    }
+    document.getElementById('lessonsLeft').textContent = weekdayCount;
+  </script>
+</body>
+</html>
